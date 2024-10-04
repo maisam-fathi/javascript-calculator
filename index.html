@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+
+    <script>
+function appendoperation(operation) {
+    document.getElementById('resultAria').innerHTML += operation;
+}
+
+function calculateresult (){
+let container = document.getElementById('resultAria');
+let result = eval (container.innerHTML);
+container.innerHTML = parseFloat(result).toFixed(2);
+}
+
+function deleteLast (){
+    let container = document.getElementById('resultAria');
+    if(container.innerHTML.endsWith(' ')){
+        container.innerHTML = container.innerHTML.slice(0, -3);
+    } else{
+    container.innerHTML = container.innerHTML.slice(0, -1);
+        }
+}
+
+function calculateTrig(func){
+    let container = document.getElementById('resultAria');
+    let value = parseFloat(container.innerHTML);
+    let result = 0;
+    switch(func){
+        case 'sin':
+            result = Math.sin(value * Math.PI / 180);
+            break;
+        case 'cos':
+            result = Math.cos(value * Math.PI / 180);
+            break;
+        case 'tan':
+            result = Math.tan(value * Math.PI / 180);
+            break;
+    }
+    container.innerHTML = result.toFixed(2);
+}
+function clearAll() {
+    document.getElementById('resultAria').innerHTML = '';  // Clears all the content
+}
+    </script>
+
+</head>
+<body>
+    <div id="resultAria"></div>
+
+    <table>
+        <tr></tr>
+            <td >__</td>
+            <td >__</td>
+            <td >__</td>
+            <td onclick="clearAll()">CE</td>
+        </tr>
+        <tr>
+            <td onclick="calculateTrig('sin')">Sin</td>
+            <td onclick="calculateTrig('cos')">Cos</td>
+            <td onclick="calculateTrig('tan')">Tan</td>
+            <td onclick="deleteLast()">DEL</td>
+        </tr>
+        <tr>
+            <td onclick="appendoperation(7)">7</td>
+            <td onclick="appendoperation(8)">8</td>
+            <td onclick="appendoperation(9)">9</td>
+            <td onclick="appendoperation(' / ')" class="dark" >/</td>
+        </tr>
+
+        <tr>
+            <td onclick="appendoperation(4)">4</td>
+            <td onclick="appendoperation(5)">5</td>
+            <td onclick="appendoperation(6)">6</td>
+            <td onclick="appendoperation(' * ')" class="dark">x</td>
+        </tr>      
+
+        <tr>
+            <td onclick="appendoperation(1)">1</td>
+            <td onclick="appendoperation(2)">2</td>
+            <td onclick="appendoperation(3)">3</td>
+            <td onclick="appendoperation(' + ')" class="dark">+</td>
+        </tr>      
+
+        <tr>
+            <td onclick="appendoperation(0)">0</td>
+            <td onclick="appendoperation('.')">,</td>
+            <td onclick="calculateresult()" id="result">=</td>
+            <td onclick="appendoperation(' - ')" class="dark">-</td>
+        </tr>  
+    </table>
+</body>
+</html>
